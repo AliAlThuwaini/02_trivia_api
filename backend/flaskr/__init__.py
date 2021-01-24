@@ -103,22 +103,21 @@ def create_app(test_config=None):
     # if try is successful, the book must be delted and value returned
     try:
       qus_to_delete = Question.query.filter(Question.id == question_id).one_or_none()
-
       #In case tried to delete a non-existant question, it should abort with 404: resource not available
       if qus_to_delete is None:
         abort(404)
 
-      else:
-        qus_to_delete.delete()
+      qus_to_delete.delete()
 
-        return jsonify({
-          'success': True,
-          'deleted': question_id
-          })
+      return jsonify({
+        'success': True,
+        'deleted': question_id,
+        'question': qus_to_delete
+        })
     #In case try block failed which means something went wrong, should abort with 422 code: unprocessable
-    except:
+    except Exception as error:
+      #print("\nerror => {}\n".format(error))
       abort(422)
-
 
 
 
@@ -244,41 +243,10 @@ def create_app(test_config=None):
   one question at a time is displayed, the user is allowed to answer
   and shown whether they were correct or not. 
   '''
-  # @app.route('/quizzes', methods=['POST'])
-  # def quiz():
-  #   body = request.get_json()
-
-  #   if not ('quiz_category' in body and 'previous_questions' in body):
-  #     abort(400)
-  #   try:
-  #     category = body.get('quiz_category')['id']
-  #     previous_questions = body.get('previous_questions')
-
-  #     if category == 0:
-  #       questions_list = Question.query.filter(Question.id.notin_(
-  #         previous_questions)).all()
-
-  #     else:
-  #       questions_list = Question.query.filter_by(category=category).filter(
-  #         Question.id.notin_(previous_questions)).all()
-
-  #     if len(questions_list) > 0:
-  #         random_question = questions_list[random.randint(
-  #             0, len(questions_list))].format()
-  #     else:
-  #         random_question = None
-  #     print(random_question)
-  #     return jsonify({
-  #         'success': True,
-  #         'question': random_question
-  #     })
-  #   except BaseException:
-  #       abort(422)
-
-
+  
   @app.route('/quizzes', methods=['POST'])
 
-  def retrive_quizQuestion():
+  def quiz_question():
     body = request.get_json()
     quiz_category = body.get('quiz_category', None)['id']
     previous_questions = body.get('previous_questions', None)
