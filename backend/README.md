@@ -77,7 +77,9 @@ The API will return three error types when requests fail:
 
 #### GET /categories
 - General:
-    - Retrieves a list of categories along with a success flag that to know that status of the operation.
+    - Retrieves:
+        - success flag
+        - a list of categories
 - Sample: `curl http://127.0.0.1:5000/categories`
 
 ```{
@@ -195,7 +197,7 @@ The API will return three error types when requests fail:
 #### DELETE /questions/{question_id}
 - General:
     - Deletes the question of the given ID if it exists. Returns the id of the deleted question, and success value
-- `curl -X DELETE http://127.0.0.1:5000/questions/24`
+- Sample: `curl -X DELETE http://127.0.0.1:5000/questions/24`
 ```
 {
   "deleted": 24,
@@ -204,13 +206,12 @@ The API will return three error types when requests fail:
 ```
 
 #### POST /questions/
-    - Creates a new questions using the submitted question, answer, category, and difficulty. 
-    It returns the following:
+    - Creates a new questions using the submitted question, answer, category, and difficulty. It returns the following:
         - success flag
         - id of the created question
         - questions paginated 
         - total number of available questions
-- `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question":"What is the difference between mail and femail", "answer":"Prefix letters fe", "category":"5", "difficulty":"2"}'`
+- Sample: `curl http://127.0.0.1:5000/questions -X POST -H "Content-Type: application/json" -d '{"question":"What is the difference between mail and femail", "answer":"Prefix letters fe", "category":"5", "difficulty":"2"}'`
 
 ```
 {
@@ -293,9 +294,9 @@ The API will return three error types when requests fail:
 ```
 
 #### POST /questions/search
-- General - with search term:
-	- Searches for questions using the submitted search term. Returns list of questions objects, success value, and total number of questions 
-- `curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "largest"}'`
+
+- Searches for questions using the submitted search term. Returns list of questions objects, success value, and total number of questions 
+- Sample: `curl http://127.0.0.1:5000/questions/search -X POST -H "Content-Type: application/json" -d '{"searchTerm": "largest"}'`
 ```
 {
   "current_category": [
@@ -317,13 +318,12 @@ The API will return three error types when requests fail:
 ```
 
 #### GET /categories/{category_id}/questions
-- General:
-    - Returns:
-        - success flag
-        - questions in that category
-        - total number of questions
-        - current category id
-    - Future version should take care of pagination here as well!!
+- Returns:
+    - success flag
+    - questions in that category
+    - total number of questions
+    - current category id
+- Future version should take care of pagination here as well!!
 - Sample: `curl http://127.0.0.1:5000/categories/3/questions`
 
 ```
@@ -359,12 +359,12 @@ The API will return three error types when requests fail:
 ```
 
 #### POST /quizzes
-- General:
-	- Returns
-        - success flag
-        - a list of previous questions
-        - current question 
-- `curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [], "quiz_category": {"type": "Science", "id": "2"}}'`
+
+- Returns
+    - success flag
+    - a list of previous questions
+    - current question 
+- Smaple: `curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [], "quiz_category": {"type": "Science", "id": "2"}}'`
 ```
 {
   "previous_questions": [
